@@ -1,0 +1,9 @@
+import {sql} from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+
+export const posts = sqliteTable ("posts", {
+    id: integer("id",{mode:"number"}).primaryKey({autoIncrement:true}),
+    title: text("title", {length : 256}).notNull(),
+    content: text("content", {length : 256}).notNull(),
+    timestamp: text("timestamp").notNull().default(sql`CURRENT_TIMESTAMP`),
+})

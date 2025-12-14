@@ -1,0 +1,34 @@
+### Variables
+@baseUrl =   https://myapp.amroaltayeb14.workers.dev
+# For local testing, uncomment the line below:
+# @baseUrl = http://localhost:8787
+
+### Get all posts
+GET {{baseUrl}}/posts
+
+### Create a new post
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{
+  "title": "My First Post",
+  "content": "This is the content of my first post!"
+}
+
+### Create another post
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{
+  "title": "Testing D1 Database",
+  "content": "This post is created to test the D1 database with Hono API"
+}
+
+### Create a third post
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{
+  "title": "Hello World",
+  "content": "Testing the API deployment on Cloudflare Workers"
+}
