@@ -1,7 +1,7 @@
 ### Variables
-# @baseUrl =   https://myapp.amroaltayeb14.workers.dev 
+@baseUrl =   https://myapp.amroaltayeb14.workers.dev 
 # For local testing, uncomment the line below:
-@baseUrl = http://localhost:8787
+# @baseUrl = http://localhost:8787
 
 ### Get all posts
 GET {{baseUrl}}/posts
