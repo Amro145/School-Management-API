@@ -1,12 +1,13 @@
 import { Context, Next } from "hono";
 import { verifyToken } from "../utils/jwt";
+import type { Env, Variables } from "../index";
 
 type UserPayload = { id: number; email: string; role: string };
 
 /**
  * Middleware to authenticate JWT tokens
  */
-export const authenticate = async (c: Context, next: Next) => {
+export const authenticate = async (c: Context<{ Bindings: Env; Variables: Variables }>, next: Next) => {
     const authHeader = c.req.header('Authorization');
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -31,8 +32,8 @@ export const authenticate = async (c: Context, next: Next) => {
     return next();
 };
 
-export const adminOnly = async (c: Context, next: Next) => {
-    const user = c.get('user') as UserPayload;
+export const adminOnly = async (c: Context<{ Bindings: Env; Variables: Variables }>, next: Next) => {
+    const user = c.get('user');
     if (!user || user?.role !== 'admin') {
         return c.json({ error: 'Admin only' }, 403);
     }
@@ -40,8 +41,8 @@ export const adminOnly = async (c: Context, next: Next) => {
     return next();
 }
 
-export const checkAuthStatus = async (c: Context, next: Next) => {
-    const user = c.get('user') as UserPayload;
+export const checkAuthStatus = async (c: Context<{ Bindings: Env; Variables: Variables }>, next: Next) => {
+    const user = c.get('user');
     if (!user) {
         return c.json({ error: 'Unauthorized' }, 401);
     }

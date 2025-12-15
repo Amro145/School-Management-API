@@ -31,3 +31,17 @@ GET {{baseUrl}}/users/teachers
 ### delete user
 DELETE {{baseUrl}}/users/12
 Authorization: Bearer {{token}}
+
+
+###################SCHOOL###################
+### create school
+POST {{baseUrl}}/schools
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "almoh"
+}
+### get schools
+GET {{baseUrl}}/schools
+

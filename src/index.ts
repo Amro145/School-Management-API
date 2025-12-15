@@ -4,6 +4,7 @@ import { Hono } from 'hono'
 import * as schema from './db/schema';
 import bcrypt from 'bcryptjs';
 import userRoutes from './controller/userController';
+import schoolRoutes from './controller/schoolController';
 
 export type Env = {
   MY_VAR: string;
@@ -11,9 +12,15 @@ export type Env = {
   myAppD1: D1Database;
   JWT_SECRET: string;
 }
-const app = new Hono<{ Bindings: Env }>()
+
+export type Variables = {
+  user: { id: number; email: string; role: string };
+}
+
+const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 
 app.route('/users', userRoutes);
+app.route('/schools', schoolRoutes);
 
 
 

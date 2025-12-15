@@ -4,12 +4,12 @@ import { Hono } from 'hono';
 import { drizzle } from 'drizzle-orm/d1';
 import { eq } from 'drizzle-orm';
 import * as schema from '../db/schema';
-import { Env } from '../index';
+import { Env, Variables } from '../index';
 import bcrypt from 'bcryptjs';
 import { adminOnly, checkAuthStatus, authenticate } from '../middlewares/middleware';
 import { generateToken } from '../utils/jwt';
 
-const userRoutes = new Hono<{ Bindings: Env }>();
+const userRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 
 
