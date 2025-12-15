@@ -1,0 +1,49 @@
+import { Context, Next } from "hono";
+import { verifyToken } from "../utils/jwt";
+
+type UserPayload = { id: number; email: string; role: string };
+
+/**
+ * Middleware to authenticate JWT tokens
+ */
+export const authenticate = async (c: Context, next: Next) => {
+    const authHeader = c.req.header('Authorization');
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return c.json({ error: 'Missing or invalid authorization header' }, 401);
+    }
+
+    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    const secret = c.env.JWT_SECRET;
+
+    if (!secret) {
+        return c.json({ error: 'Server configuration error' }, 500);
+    }
+
+    const result = await verifyToken(token, secret);
+
+    if (!result.valid || !result.payload) {
+        return c.json({ error: 'Invalid or expired token' }, 401);
+    }
+
+    // Attach user payload to context
+    c.set('user', result.payload as UserPayload);
+    return next();
+};
+
+export const adminOnly = async (c: Context, next: Next) => {
+    const user = c.get('user') as UserPayload;
+    if (!user || user?.role !== 'admin') {
+        return c.json({ error: 'Admin only' }, 403);
+    }
+    console.log(user);
+    return next();
+}
+
+export const checkAuthStatus = async (c: Context, next: Next) => {
+    const user = c.get('user') as UserPayload;
+    if (!user) {
+        return c.json({ error: 'Unauthorized' }, 401);
+    }
+    return next();
+}

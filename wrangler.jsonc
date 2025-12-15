@@ -16,6 +16,7 @@
 	//   "nodejs_compat"
 	// ],
 	"vars": {
+		"JWT_SECRET": "my-secret-key",
 		"MY_VAR": "my-variable"
 	},
 	// "kv_namespaces": [

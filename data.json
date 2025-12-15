@@ -1,0 +1,44 @@
+{
+  "user": [
+    { "id": 101, "userName": "Admin_Ali", "email": "ali@school.com", "passwordHash": "hashed_admin_pass", "role": "admin", "createdAt": "2025-10-01" },
+    { "id": 102, "userName": "Teacher_Ahmad", "email": "ahmad@school.com", "passwordHash": "hashed_teacher_pass", "role": "teacher", "createdAt": "2025-10-01" },
+    { "id": 103, "userName": "Teacher_Sara", "email": "sara@school.com", "passwordHash": "hashed_sara_pass", "role": "teacher", "createdAt": "2025-10-02" },
+    { "id": 104, "userName": "Student_Fahd", "email": "fahd@std.com", "passwordHash": "hashed_fahd_pass", "role": "student", "createdAt": "2025-10-03" },
+    { "id": 105, "userName": "Student_Noor", "email": "noor@std.com", "passwordHash": "hashed_noor_pass", "role": "student", "createdAt": "2025-10-03" }
+  ],
+  "school": [
+    { "id": 1, "name": "Al-Nujum Private School", "createdAt": "2025-10-01" }
+  ],
+  "classRoom": [
+    { "id": 201, "name": "Class 10-A", "createdAt": "2025-10-05" },
+    { "id": 202, "name": "Class 11-B", "createdAt": "2025-10-05" }
+  ],
+  "subject": [
+    { "id": 301, "name": "Mathematics", "createdAt": "2025-10-01" },
+    { "id": 302, "name": "Physics", "createdAt": "2025-10-01" },
+    { "id": 303, "name": "History", "createdAt": "2025-10-02" }
+  ],
+  
+  "schoolClasses": [
+    { "schoolId": 1, "classRoomId": 201 },
+    { "schoolId": 1, "classRoomId": 202 }
+  ],
+  
+  "teacherSubjects": [
+    { "teacherId": 102, "subjectId": 301 }, 
+    { "teacherId": 102, "subjectId": 302 }, 
+    { "teacherId": 103, "subjectId": 303 }   
+  ],
+  
+  "classSubjects": [
+    { "classRoomId": 201, "subjectId": 301, "teacherId": 102 }, 
+    { "classRoomId": 201, "subjectId": 302, "teacherId": 102 }, 
+    { "classRoomId": 202, "subjectId": 303, "teacherId": 103 }  
+  ],
+  
+  "enrollments": [
+    { "studentId": 104, "classRoomId": 201, "createdAt": "2025-10-10" }, 
+    { "studentId": 105, "classRoomId": 201, "createdAt": "2025-10-10" }, 
+    { "studentId": 105, "classRoomId": 202, "createdAt": "2025-10-11" } 
+  ]
+}

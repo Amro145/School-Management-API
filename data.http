@@ -1,55 +1,33 @@
 ### Variables
 # @baseUrl =   https://myapp.amroaltayeb14.workers.dev 
 # For local testing, uncomment the line below:
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIsInJvbGUiOiJhZG1pbiIsInVzZXJOYW1lIjoiYW1ybyIsImlhdCI6MTc2NTc2MjYwNCwiZXhwIjoxNzY2MzY3NDA0fQ.__ScGEP3P__IZThMOhK3C9CJL3aCRJfLmnZVbpBF6MY
 @baseUrl = http://localhost:8787
 
-### Get all users
-GET {{baseUrl}}/users
-### get user By Id
-GET {{baseUrl}}/user/1
-### Create a user
-POST {{baseUrl}}/signup
+### signup
+POST {{baseUrl}}/users/signup
 Content-Type: application/json
 
 {
-  "userName": "ali",
-  "email": "ali@gmail.com",
+  "userName": "amro",
+  "email": "amro@gmail.com",
+  "password": "123456",
+  "role": "admin"
+}
+### login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "amro@gmail.com",
   "password": "123456"
 }
-
-### Get all posts
-GET {{baseUrl}}/posts
-
-### Create a new post (make sure to create a user first and use their ID)
-POST {{baseUrl}}/post
-Content-Type: application/json
-
-{
-  "userId": 1,
-  "title": "My First Post",
-  "content": "This is the content of my first post!"
-}
-
-### Get post by id
-GET {{baseUrl}}/post/1
-
-### Update post
-PUT {{baseUrl}}/post/1
-Content-Type: application/json
-
-{
-  "title": "Updated Post",
-  "content": "This is the updated content of the post!"
-}
-
-### Get all comments
-GET {{baseUrl}}/comments
-
-### Create comment (make sure to create a post first and use its ID)
-POST {{baseUrl}}/comment
-Content-Type: application/json
-
-{
-  "postId": 1,
-  "content": "This is comment from mohamed!"
-}
+### get student
+GET {{baseUrl}}/users/students
+### get admins
+GET {{baseUrl}}/users/admin
+### get teachers
+GET {{baseUrl}}/users/teachers
+### delete user
+DELETE {{baseUrl}}/users/12
+Authorization: Bearer {{token}}

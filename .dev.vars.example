@@ -1,0 +1,6 @@
+# Environment Variables Template
+# Copy this to .dev.vars and fill in your actual values
+
+# JWT Secret - Use a long, random string
+# Generate one with: openssl rand -base64 32
+JWT_SECRET=your-super-secret-jwt-key-change-this-to-something-secure
