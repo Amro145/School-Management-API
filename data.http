@@ -1,9 +1,9 @@
 ### Variables
 # @baseUrl =   https://myapp.amroaltayeb14.workers.dev 
 # For local testing, uncomment the line below:
-@studentToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwicm9sZSI6InN0dWRlbnQiLCJ1c2VyTmFtZSI6ImFsaSIsImlhdCI6MTc2NTgzMTA0NywiZXhwIjoxNzY2NDM1ODQ3fQ.p9MQ_nYqEyQo0dLgXkP6esqdS4HbD4Dnp2_Uq1-TRUQ
+@studentToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwicm9sZSI6InN0dWRlbnQiLCJ1c2VyTmFtZSI6ImFsaSIsImlhdCI6MTc2NTg0MTIyMSwiZXhwIjoxNzY2NDQ2MDIxfQ.rUf-L_DRA_H1g5cxzbUN7Irw5zdOtJmYO9_fo7uTXhQ
 @baseUrl = http://localhost:8787
-@adminToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwidXNlck5hbWUiOiJhbXJvQWRtaW4iLCJpYXQiOjE3NjU4MzgxNjUsImV4cCI6MTc2NjQ0Mjk2NX0.50qrABYju2cCcH0Wyy0BgrIYb30j-EC0o60kyqHdPww
+@adminToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlck5hbWUiOiJhbXJvIiwiaWF0IjoxNzY1ODQxMTgwLCJleHAiOjE3NjY0NDU5ODB9.b8sIvgE9N9a1GV-FDJEJdLkT7GKGpiZ0a3FBQNc_kpk
 
 ### get all users (to check what users exist)
 GET {{baseUrl}}/users
@@ -13,17 +13,17 @@ POST {{baseUrl}}/users/signup
 Content-Type: application/json
 
 {
-  "userName": "amroAdmin",
-  "email": "amroAdmin@gmail.com",
+  "userName": "ali",
+  "email": "ali@gmail.com",
   "password": "123456",
-  "role": "admin"
+  "role": "student"
 }
 ### login
 POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-  "email": "amroAdmin@gmail.com",
+  "email": "ali@gmail.com",
   "password": "123456"
 }
 ### get student
@@ -44,7 +44,7 @@ Content-Type: application/json
 Authorization: Bearer {{adminToken}}
 
 {
-  "name": "altwafeq",
+  "name": "almanhal",
   "adminId": 1
 }
 ### get schools
@@ -72,3 +72,18 @@ DELETE {{baseUrl}}/classes/3
 Authorization: Bearer {{adminToken}}
 
 
+###################SUBJECT###################
+### create subject
+POST {{baseUrl}}/subjects
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "name": "science"
+}
+### get subjects
+GET {{baseUrl}}/subjects
+Authorization: Bearer {{adminToken}}
+### delete subject
+DELETE {{baseUrl}}/subjects/2
+Authorization: Bearer {{adminToken}}

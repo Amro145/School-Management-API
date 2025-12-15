@@ -16,7 +16,6 @@ CREATE TABLE `classSubjects` (
 	FOREIGN KEY (`teacherId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE restrict
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `class_subject_teacher_unq` ON `classSubjects` (`classRoomId`,`subjectId`,`teacherId`);--> statement-breakpoint
 CREATE TABLE `enrollments` (
 	`studentId` integer NOT NULL,
 	`classRoomId` integer NOT NULL,
@@ -31,29 +30,13 @@ CREATE TABLE `school` (
 	`name` text(256) NOT NULL,
 	`adminId` integer NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	FOREIGN KEY (`adminId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
-);
---> statement-breakpoint
-CREATE TABLE `schoolClasses` (
-	`schoolId` integer NOT NULL,
-	`classRoomId` integer NOT NULL,
-	PRIMARY KEY(`schoolId`, `classRoomId`),
-	FOREIGN KEY (`schoolId`) REFERENCES `school`(`id`) ON UPDATE no action ON DELETE cascade,
-	FOREIGN KEY (`classRoomId`) REFERENCES `classRoom`(`id`) ON UPDATE no action ON DELETE cascade
+	FOREIGN KEY (`adminId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE restrict
 );
 --> statement-breakpoint
 CREATE TABLE `subject` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text(256) NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE `teacherSubjects` (
-	`teacherId` integer NOT NULL,
-	`subjectId` integer NOT NULL,
-	PRIMARY KEY(`teacherId`, `subjectId`),
-	FOREIGN KEY (`teacherId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
-	FOREIGN KEY (`subjectId`) REFERENCES `subject`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `user` (

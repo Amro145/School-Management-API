@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e28a0e6c-bd1a-4cdd-9029-7e7a967816af",
+  "id": "f1b54f92-ad9a-44da-b055-54310977585c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "classRoom": {
@@ -21,6 +21,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "schoolId": {
+          "name": "schoolId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "text",
@@ -31,7 +38,21 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "classRoom_schoolId_school_id_fk": {
+          "name": "classRoom_schoolId_school_id_fk",
+          "tableFrom": "classRoom",
+          "tableTo": "school",
+          "columnsFrom": [
+            "schoolId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -61,17 +82,7 @@
           "autoincrement": false
         }
       },
-      "indexes": {
-        "class_subject_teacher_unq": {
-          "name": "class_subject_teacher_unq",
-          "columns": [
-            "classRoomId",
-            "subjectId",
-            "teacherId"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "classSubjects_classRoomId_classRoom_id_fk": {
           "name": "classSubjects_classRoomId_classRoom_id_fk",
@@ -237,70 +248,11 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "restrict",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "schoolClasses": {
-      "name": "schoolClasses",
-      "columns": {
-        "schoolId": {
-          "name": "schoolId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "classRoomId": {
-          "name": "classRoomId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "schoolClasses_schoolId_school_id_fk": {
-          "name": "schoolClasses_schoolId_school_id_fk",
-          "tableFrom": "schoolClasses",
-          "tableTo": "school",
-          "columnsFrom": [
-            "schoolId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "schoolClasses_classRoomId_classRoom_id_fk": {
-          "name": "schoolClasses_classRoomId_classRoom_id_fk",
-          "tableFrom": "schoolClasses",
-          "tableTo": "classRoom",
-          "columnsFrom": [
-            "classRoomId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "schoolClasses_schoolId_classRoomId_pk": {
-          "columns": [
-            "schoolId",
-            "classRoomId"
-          ],
-          "name": "schoolClasses_schoolId_classRoomId_pk"
-        }
-      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
@@ -333,65 +285,6 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "teacherSubjects": {
-      "name": "teacherSubjects",
-      "columns": {
-        "teacherId": {
-          "name": "teacherId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "subjectId": {
-          "name": "subjectId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "teacherSubjects_teacherId_user_id_fk": {
-          "name": "teacherSubjects_teacherId_user_id_fk",
-          "tableFrom": "teacherSubjects",
-          "tableTo": "user",
-          "columnsFrom": [
-            "teacherId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "teacherSubjects_subjectId_subject_id_fk": {
-          "name": "teacherSubjects_subjectId_subject_id_fk",
-          "tableFrom": "teacherSubjects",
-          "tableTo": "subject",
-          "columnsFrom": [
-            "subjectId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "teacherSubjects_teacherId_subjectId_pk": {
-          "columns": [
-            "teacherId",
-            "subjectId"
-          ],
-          "name": "teacherSubjects_teacherId_subjectId_pk"
-        }
-      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
