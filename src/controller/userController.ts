@@ -96,8 +96,44 @@ userRoutes.get("/students", async (c) => {
             createdAt: true,
         },
         with: {
-            classesTaught: true,
-            enrollments: true,
+            enrollments: {
+                columns: {
+                   
+                },
+                with: {
+                    classRoom: {
+                        columns: {
+                            name: true,
+
+                            createdAt: true,
+                        },
+                        with: {
+                            classSubjects: {
+                                columns: {
+                                    subjectId: true,
+                                    teacherId: true,
+                                },
+                                with: {
+                                    subject: {
+                                        columns: {
+                                            name: true,
+                                            createdAt: true,
+                                        },
+                                    },
+                                    teacher: {
+                                        columns: {
+                                            userName: true,
+                                            email: true,
+                                            role: true,
+                                            createdAt: true,
+                                        },
+                                    },
+                                },
+                            }
+                        }
+                    },
+                },
+            },
         }
     })
     return c.json(users, 200)
@@ -118,7 +154,7 @@ userRoutes.get("/teachers", async (c) => {
         with: {
             classesTaught: {
                 columns: {
-                 
+
                 },
                 with: {
                     classRoom: {
