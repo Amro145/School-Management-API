@@ -14,10 +14,10 @@ connectionRoutes.post('/connect', authenticate, adminOnly, async (c) => {
     const subject = await drizzle(c.env.myAppD1).select().from(schema.subject).where(eq(schema.subject.id, subjectId));
     const teacher = await drizzle(c.env.myAppD1).select().from(schema.user).where(eq(schema.user.id, teacherId));
     if (!classRoom.length || !subject.length || !teacher.length) {
-        return c.json({ message: "No class, subject or teacher found" }, 404);
+        return c.json({ error: "No class, subject or teacher found" }, 404);
     }
     else if (teacher[0].role !== 'teacher') {
-        return c.json({ message: "Teacher not found" }, 404);
+        return c.json({ error: "Teacher not found" }, 404);
     }
     else {
         // Check if connection already exists
@@ -57,7 +57,7 @@ connectionRoutes.delete('/disconnect', authenticate, adminOnly, async (c) => {
 
     // Return the deleted row
     if (connection.length === 0) {
-        return c.json({ message: "No connection found" }, 404);
+        return c.json({ error: "No connection found" }, 404);
     }
     return c.json(connection);
 });
@@ -76,7 +76,7 @@ connectionRoutes.get('/all', authenticate, async (c) => {
                     id: true,
                     name: true,
                 },
-                
+
 
             },
             subject: {

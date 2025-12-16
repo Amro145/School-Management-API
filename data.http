@@ -1,8 +1,8 @@
 ### Variables
-# @baseUrl =   https://myapp.amroaltayeb14.workers.dev 
+@baseUrl =   https://myapp.amroaltayeb14.workers.dev 
 # For local testing, uncomment the line below:
 @studentToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwicm9sZSI6InN0dWRlbnQiLCJ1c2VyTmFtZSI6ImFsaSIsImlhdCI6MTc2NTg0MTIyMSwiZXhwIjoxNzY2NDQ2MDIxfQ.rUf-L_DRA_H1g5cxzbUN7Irw5zdOtJmYO9_fo7uTXhQ
-@baseUrl = http://localhost:8787
+# @baseUrl = http://localhost:8787
 @adminToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlck5hbWUiOiJhbXJvIiwiaWF0IjoxNzY1ODUyMTA2LCJleHAiOjE3NjY0NTY5MDZ9.mbuoWlcbKBIG4Ch9clxps2jTg46cd2t-sITAsoCvzvQ
 
 ### get all users (to check what users exist)
@@ -13,10 +13,10 @@ POST {{baseUrl}}/users/signup
 Content-Type: application/json
 
 {
-  "userName": "abas",
-  "email": "abas@gmail.com",
+  "userName": "amro",
+  "email": "amro@gmail.com",
   "password": "123456",
-  "role": "teacher"
+  "role": "admin"
 }
 ### login
 POST {{baseUrl}}/users/login

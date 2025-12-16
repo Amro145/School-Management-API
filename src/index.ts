@@ -9,7 +9,7 @@ import classesRoutes from './controller/classesController';
 import subjectRoutes from './controller/subjectController';
 import connectionRoutes from './controller/connectionController';
 import enrollmentsRoutes from './controller/enrollmentsController';
-import gradeRoutes from './controller/gradgeController';
+import gradeRoutes from './controller/gradeController';
 
 export type Env = {
   MY_VAR: string;
