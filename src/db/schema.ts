@@ -50,6 +50,7 @@ export const classSubjects = sqliteTable("classSubjects", {
 export const enrollments = sqliteTable("enrollments", {
     studentId: integer("studentId", { mode: "number" }).notNull().references(() => user.id, { onDelete: "cascade" }),
     classRoomId: integer("classRoomId", { mode: "number" }).notNull().references(() => classRoom.id, { onDelete: "cascade" }),
+   
     createdAt: text("createdAt").notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (t) => ({
     pk: primaryKey({ columns: [t.studentId, t.classRoomId] }),
@@ -61,7 +62,7 @@ export const enrollments = sqliteTable("enrollments", {
 // --------------------------------------------------
 
 export const userRelations = relations(user, ({ many, one }) => ({
-    schoolsManaged: many(school), // المدير مسؤول عن مدارس
+
     classesTaught: many(classSubjects), // الفصول والمواد التي يدرسها المدرس
     enrollments: many(enrollments), // تسجيلات الطالب
 }));

@@ -67,39 +67,77 @@ userRoutes.post("/login", async (c) => {
 // get all users
 userRoutes.get("/", async (c) => {
     const db = drizzle(c.env.myAppD1, { schema })
-    const users = await db.select({
-        id: schema.user.id,
-        userName: schema.user.userName,
-        email: schema.user.email,
-        role: schema.user.role,
-        createdAt: schema.user.createdAt,
-    }).from(schema.user)
+    const users = await db.query.user.findMany({
+        columns: {
+            id: true,
+            userName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+        },
+        with: {
+            classesTaught: true,
+            enrollments: true,
+
+        }
+    })
     return c.json(users, 200)
 })
-
 // get students
 userRoutes.get("/students", async (c) => {
     const db = drizzle(c.env.myAppD1, { schema })
-    const users = await db.select({
-        id: schema.user.id,
-        userName: schema.user.userName,
-        email: schema.user.email,
-        role: schema.user.role,
-        createdAt: schema.user.createdAt,
-    }).from(schema.user).where(eq(schema.user.role, "student"))
+    const users = await db.query.user.findMany({
+        where: eq(schema.user.role, "student"),
+        columns: {
+            id: true,
+            userName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+        },
+        with: {
+            classesTaught: true,
+            enrollments: true,
+        }
+    })
     return c.json(users, 200)
 })
 
 // get teachers
 userRoutes.get("/teachers", async (c) => {
     const db = drizzle(c.env.myAppD1, { schema })
-    const users = await db.select({
-        id: schema.user.id,
-        userName: schema.user.userName,
-        email: schema.user.email,
-        role: schema.user.role,
-        createdAt: schema.user.createdAt,
-    }).from(schema.user).where(eq(schema.user.role, "teacher"))
+    const users = await db.query.user.findMany({
+        where: eq(schema.user.role, "teacher"),
+        columns: {
+            id: true,
+            userName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+        },
+        with: {
+            classesTaught: {
+                columns: {
+                 
+                },
+                with: {
+                    classRoom: {
+                        columns: {
+                            name: true,
+                            createdAt: true,
+                        },
+                    },
+                    subject: {
+                        columns: {
+                            name: true,
+                            createdAt: true,
+                        },
+                    },
+                },
+            },
+
+        }
+    })
     return c.json(users, 200)
 })
 
@@ -118,9 +156,7 @@ userRoutes.get("/admin", async (c) => {
             createdAt: true,
             password: false, // Exclude password from response
         },
-        with: {
-            schoolsManaged: true, // Include related schools
-        },
+
     });
 
     return c.json(admins, 200)
