@@ -1,8 +1,8 @@
 ### Variables
-# @baseUrl =   https://myapp.amroaltayeb14.workers.dev 
+@baseUrl =   https://myapp.amroaltayeb14.workers.dev 
 # For local testing, uncomment the line below:
 @studentToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwicm9sZSI6InN0dWRlbnQiLCJ1c2VyTmFtZSI6ImFsaSIsImlhdCI6MTc2NTg0MTIyMSwiZXhwIjoxNzY2NDQ2MDIxfQ.rUf-L_DRA_H1g5cxzbUN7Irw5zdOtJmYO9_fo7uTXhQ
-@baseUrl = http://localhost:8787
+# @baseUrl = http://localhost:8787
 @adminToken = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlck5hbWUiOiJhbXJvIiwiaWF0IjoxNzY1ODQxODY2LCJleHAiOjE3NjY0NDY2NjZ9.EQa9mKVL8G1HIOj5gLTH_oYFaO4ablpT2n1VeXaYLgs
 
 ### get all users (to check what users exist)
