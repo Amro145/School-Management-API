@@ -43,6 +43,9 @@ Authorization: Bearer {{adminToken}}
 ### get single class
 GET {{baseUrl}}/classes/2
 Authorization: Bearer {{adminToken}}
+### get all subjects to admin by classId 
+GET {{baseUrl}}/subjects/admin/2
+Authorization: Bearer {{adminToken}}
 
 
 ##############################DEVELOPER##############################
@@ -60,6 +63,9 @@ GET {{baseUrl}}/users/admins
 Authorization: Bearer {{adminToken}}
 ### get all classes
 GET {{baseUrl}}/dev/classes
+Authorization: Bearer {{adminToken}}
+### get all subjects to Developer
+GET {{baseUrl}}/subjects/
 Authorization: Bearer {{adminToken}}
 
 

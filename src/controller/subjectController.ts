@@ -15,31 +15,7 @@ subjectRoutes.post('/', authenticate, adminOnly, async (c) => {
     return c.json({ subject }, 201);
 });
 
-// get all subjects to Developer
-subjectRoutes.get('/', authenticate, adminOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema });
-    const subjects = await db.query.subject.findMany(
-        {
-            with: {
-                classesInvolved:
-                {
-                    columns: {
-                        classRoomId: true
-
-                    },
-                    with: {
-                        teacher: true
-                    }
-
-
-                }
-
-            }
-        }
-    );
-    return c.json(subjects, 200);
-});
-// get all subjects to admin
+// get all subjects to admin by classId 
 subjectRoutes.get('/admin/:classId', authenticate, adminOnly, async (c) => {
     const classId = c.req.param('classId');
     const db = drizzle(c.env.myAppD1, { schema });
