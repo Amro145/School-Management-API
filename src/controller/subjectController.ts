@@ -10,7 +10,7 @@ const subjectRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 subjectRoutes.post('/', authenticate, adminOnly, async (c) => {
     const body = await c.req.json();
     const { name } = body;
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const subject = await db.insert(schema.subject).values({ name }).returning();
     return c.json({ subject }, 201);
 });
@@ -18,7 +18,7 @@ subjectRoutes.post('/', authenticate, adminOnly, async (c) => {
 // get all subjects to admin by classId 
 subjectRoutes.get('/admin/:classId', authenticate, adminOnly, async (c) => {
     const classId = c.req.param('classId');
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const classSubjects = await db.query.classRoom.findMany({
         where: eq(schema.classRoom.id, Number(classId)),
         columns: {},
@@ -39,7 +39,7 @@ subjectRoutes.get('/admin/:classId', authenticate, adminOnly, async (c) => {
 // delete subject
 subjectRoutes.delete('/:id', authenticate, adminOnly, async (c) => {
     const id = c.req.param('id');
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const subject = await db.delete(schema.subject).where(eq(schema.subject.id, Number(id))).returning();
     return c.json({ subject }, 200);
 });

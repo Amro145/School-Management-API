@@ -5,9 +5,9 @@
 	"compatibility_date": "2025-12-14",
 	"d1_databases": [
 		{
-			"binding": "myAppD1",
-			"database_name": "myAppD1",
-			"database_id": "38cba086-fad7-49fa-a486-8b5eb41fa048",
+			"binding": "schoolcontroller",
+			"database_name": "schoolcontroller",
+			"database_id": "c168d2fd-1e32-4783-8e19-449084a11031",
 			"migrations_dir": "drizzle/migrations",
 			"remote": false
 		}

@@ -17,7 +17,7 @@ import userRoutesDeveloper from './developerController/users';
 export type Env = {
   MY_VAR: string;
   PRIVATE: string;
-  myAppD1: D1Database;
+  schoolcontroller: D1Database;
   JWT_SECRET: string;
 }
 

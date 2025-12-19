@@ -10,9 +10,9 @@ const connectionRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 connectionRoutes.post('/connect', authenticate, adminOnly, async (c) => {
     const body: { classRoomId: number; subjectId: number; teacherId: number } = await c.req.json();
     const { classRoomId, subjectId, teacherId } = body;
-    const classRoom = await drizzle(c.env.myAppD1).select().from(schema.classRoom).where(eq(schema.classRoom.id, classRoomId));
-    const subject = await drizzle(c.env.myAppD1).select().from(schema.subject).where(eq(schema.subject.id, subjectId));
-    const teacher = await drizzle(c.env.myAppD1).select().from(schema.user).where(eq(schema.user.id, teacherId));
+    const classRoom = await drizzle(c.env.schoolcontroller).select().from(schema.classRoom).where(eq(schema.classRoom.id, classRoomId));
+    const subject = await drizzle(c.env.schoolcontroller).select().from(schema.subject).where(eq(schema.subject.id, subjectId));
+    const teacher = await drizzle(c.env.schoolcontroller).select().from(schema.user).where(eq(schema.user.id, teacherId));
     if (!classRoom.length || !subject.length || !teacher.length) {
         return c.json({ error: "No class, subject or teacher found" }, 404);
     }
@@ -21,7 +21,7 @@ connectionRoutes.post('/connect', authenticate, adminOnly, async (c) => {
     }
     else {
         // Check if connection already exists
-        const existingConnection = await drizzle(c.env.myAppD1).select().from(schema.classSubjects).where(
+        const existingConnection = await drizzle(c.env.schoolcontroller).select().from(schema.classSubjects).where(
             and(
                 eq(schema.classSubjects.classRoomId, classRoomId),
                 eq(schema.classSubjects.subjectId, subjectId)
@@ -32,7 +32,7 @@ connectionRoutes.post('/connect', authenticate, adminOnly, async (c) => {
             return c.json({ error: "Connection already exists between this class and subject" }, 409);
         }
 
-        const connection = await drizzle(c.env.myAppD1).insert(schema.classSubjects).values({
+        const connection = await drizzle(c.env.schoolcontroller).insert(schema.classSubjects).values({
             classRoomId,
             subjectId,
             teacherId
@@ -45,7 +45,7 @@ connectionRoutes.post('/connect', authenticate, adminOnly, async (c) => {
 connectionRoutes.delete('/disconnect', authenticate, adminOnly, async (c) => {
     const body: { classRoomId: number; subjectId: number; teacherId: number } = await c.req.json();
     const { classRoomId, subjectId, teacherId } = body;
-    const connection = await drizzle(c.env.myAppD1).delete(schema.classSubjects)
+    const connection = await drizzle(c.env.schoolcontroller).delete(schema.classSubjects)
         .where(
             and(
                 eq(schema.classSubjects.classRoomId, classRoomId),
@@ -65,7 +65,7 @@ connectionRoutes.delete('/disconnect', authenticate, adminOnly, async (c) => {
 connectionRoutes.get('/all', authenticate, async (c) => {
     const teacher = aliasedTable(schema.user, 'teacher');
     const admin = aliasedTable(schema.user, 'admin');
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const connections = await db.query.classSubjects.findMany({
         columns: {
 

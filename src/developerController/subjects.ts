@@ -8,7 +8,7 @@ import { eq, inArray } from 'drizzle-orm';
 const subjectRoutesDeveloper = new Hono<{ Bindings: Env; Variables: Variables }>();
 // get all subjects to Developer
 subjectRoutesDeveloper.get('/', authenticate, adminOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const subjects = await db.query.subject.findMany(
         {
             with: {

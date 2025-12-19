@@ -9,7 +9,7 @@ const classesRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 //  Create class 
 classesRoutes.post('/', authenticate, adminOnly, async (c) => {
     const body = await c.req.json();
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const { name, schoolId } = body;
     // Verify that the referenced school exists to avoid FK constraint errors
     const existingSchool = await db.query.school.findFirst({ where: eq(schema.school.id, schoolId) });
@@ -21,7 +21,7 @@ classesRoutes.post('/', authenticate, adminOnly, async (c) => {
 });
 // get Admin classes
 classesRoutes.get('/', authenticate, adminOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const currentUser = c.get('user');
     const adminSchools = await db.query.school.findMany({ where: eq(schema.school.adminId, currentUser.id) });
     const schoolIds = adminSchools.map((school) => school.id);
@@ -35,7 +35,7 @@ classesRoutes.get('/:id', authenticate, adminOnly, async (c) => {
     const id = c.req.param('id');
     const currentUser = c.get('user');
 
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const classRoom = await db.query.classRoom.findFirst({
         where: eq(schema.classRoom.id, Number(id)),
         with: {
@@ -65,7 +65,7 @@ classesRoutes.get('/:id', authenticate, adminOnly, async (c) => {
 // delete class
 classesRoutes.delete('/delete/:id', authenticate, adminOnly, async (c) => {
     const id = c.req.param('id');
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const classRoom = await db.delete(schema.classRoom).where(eq(schema.classRoom.id, Number(id))).returning();
     return c.json({ classRoom }, 200);
 })

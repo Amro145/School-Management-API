@@ -7,7 +7,7 @@ import { seed } from '../seed';
 const seedController = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 seedController.post('/', async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
 
     try {
         const result = await seed(db);

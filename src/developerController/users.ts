@@ -11,7 +11,7 @@ const userRoutesDeveloper = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 // get all users to Developer
 userRoutesDeveloper.get("/", authenticate, developerOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const users = await db.query.user.findMany({
         columns: {
             id: true,
@@ -30,7 +30,7 @@ userRoutesDeveloper.get("/", authenticate, developerOnly, async (c) => {
 })
 // get students to Developer
 userRoutesDeveloper.get("/students", authenticate, developerOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const users = await db.query.user.findMany({
         where: eq(schema.user.role, "student"),
         columns: {
@@ -86,7 +86,7 @@ userRoutesDeveloper.get("/students", authenticate, developerOnly, async (c) => {
 
 // get teachers to Developer
 userRoutesDeveloper.get("/teachers", authenticate, developerOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const users = await db.query.user.findMany({
         where: eq(schema.user.role, "teacher"),
         columns: {
@@ -124,7 +124,7 @@ userRoutesDeveloper.get("/teachers", authenticate, developerOnly, async (c) => {
 
 // get admin with their schools to Developer
 userRoutesDeveloper.get("/admin", authenticate, developerOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
 
     // Use relational query to get admins with their schools
     const admins = await db.query.user.findMany({

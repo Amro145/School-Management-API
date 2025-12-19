@@ -9,7 +9,7 @@ const gradeRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 // create grade
 gradeRoutes.post('/', authenticate, adminOnly, async (c) => {
     const body = await c.req.json();
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const { studentId, classRoomId, subjectId, score, type } = body;
 
     // Validate required fields
@@ -75,7 +75,7 @@ gradeRoutes.post('/', authenticate, adminOnly, async (c) => {
 });
 // get all grades
 gradeRoutes.get('/', async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const grades = await db.query.studentGrades.findMany(
         {
             columns: {
@@ -111,7 +111,7 @@ gradeRoutes.get('/', async (c) => {
 gradeRoutes.put('/:id', authenticate, adminOnly, async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const { studentId, classRoomId, subjectId, score, type } = body;
 
     // Check if grade exists
@@ -136,7 +136,7 @@ gradeRoutes.put('/:id', authenticate, adminOnly, async (c) => {
 // delete grade
 gradeRoutes.delete('/:id', authenticate, adminOnly, async (c) => {
     const id = c.req.param("id");
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
 
     // Check if grade exists
     const existing = await db.select().from(schema.studentGrades).where(eq(schema.studentGrades.id, Number(id)));

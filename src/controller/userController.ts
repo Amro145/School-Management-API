@@ -15,7 +15,7 @@ const userRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 // create Users
 userRoutes.post("/signup", async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const { userName, email, password, role } = await c.req.json()
     if (!userName || !email || !password || !role) {
         return c.json({ error: "Missing required fields" }, 400)
@@ -39,7 +39,7 @@ userRoutes.post("/signup", async (c) => {
 })
 // login
 userRoutes.post("/login", async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const { email, password } = await c.req.json()
     if (!email || !password) {
         return c.json({ error: "Missing required fields" }, 400)
@@ -64,7 +64,7 @@ userRoutes.post("/login", async (c) => {
 })
 // delete user
 userRoutes.delete("/delete/:id", authenticate, adminOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const idParam = c.req.param("id")
     const id = Number(idParam)
 
@@ -92,7 +92,7 @@ userRoutes.delete("/delete/:id", authenticate, adminOnly, async (c) => {
 })
 // get Profile
 userRoutes.get("/admin/profile", authenticate, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const idParam = c.req.param("id")
     const id = Number(idParam)
     const currentUser = c.get('user');
@@ -104,7 +104,7 @@ userRoutes.get("/admin/profile", authenticate, async (c) => {
 // get Techers to admin
 userRoutes.get("/admin/teachers", authenticate, adminOnly, async (c) => {
     const currentUser = c.get('user');
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
 
     const teachers = await db.select({
         id: schema.user.id,
@@ -133,7 +133,7 @@ userRoutes.get("/admin/teachers", authenticate, adminOnly, async (c) => {
 //get signale Teacher to admin
 userRoutes.get("/admin/teacher/:id", authenticate, adminOnly, async (c) => {
     const currentUser = c.get('user');
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const idParam = c.req.param("id")
     const id = Number(idParam)
     const teacher = await db.select(
@@ -165,7 +165,7 @@ userRoutes.get("/admin/teacher/:id", authenticate, adminOnly, async (c) => {
 // get students to to admin by classRoomId 
 userRoutes.get("/admin/students/:classRoomId", authenticate, adminOnly, async (c) => {
     const currentUser = c.get('user');
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const classRoomIdParam = c.req.param("classRoomId")
     const classRoomId = Number(classRoomIdParam)
     const students = await db.select({
@@ -190,7 +190,7 @@ userRoutes.get("/admin/students/:classRoomId", authenticate, adminOnly, async (c
 })
 // get single student to admin
 userRoutes.get("/admin/student/:id", authenticate, adminOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema });
+    const db = drizzle(c.env.schoolcontroller, { schema });
     const idParam = c.req.param("id")
     const id = Number(idParam)
     const student = await db.query.user.findMany({

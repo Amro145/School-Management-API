@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 const classesRoutesDeveloper = new Hono<{ Bindings: Env; Variables: Variables }>();
 // get all classes
 classesRoutesDeveloper.get('/', authenticate, developerOnly, async (c) => {
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
     const classes = await db.query.classRoom.findMany({
         columns: {
             name: true,

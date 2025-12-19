@@ -11,15 +11,15 @@ enrollmentsRoutes.post("/enroll", authenticate, adminOnly, async (c) => {
     const body: { studentId: number; classRoomId: number } = await c.req.json();
     const { studentId, classRoomId } = body;
 
-    const classRoom = await drizzle(c.env.myAppD1).select().from(schema.classRoom).where(eq(schema.classRoom.id, classRoomId));
-    const student = await drizzle(c.env.myAppD1).select().from(schema.user).where(eq(schema.user.id, studentId));
+    const classRoom = await drizzle(c.env.schoolcontroller).select().from(schema.classRoom).where(eq(schema.classRoom.id, classRoomId));
+    const student = await drizzle(c.env.schoolcontroller).select().from(schema.user).where(eq(schema.user.id, studentId));
     if (!student.length || !classRoom.length) {
         return c.json({ message: "No student or class found" }, 404);
     }
     if (student[0].role !== "student") {
         return c.json({ message: "Student not found" }, 404);
     }
-    const enrollment = await drizzle(c.env.myAppD1).insert(schema.enrollments).values({
+    const enrollment = await drizzle(c.env.schoolcontroller).insert(schema.enrollments).values({
         studentId,
         classRoomId
     }).returning();
@@ -30,7 +30,7 @@ enrollmentsRoutes.post("/enroll", authenticate, adminOnly, async (c) => {
 enrollmentsRoutes.get("/all", authenticate, adminOnly, async (c) => {
     const teacher = aliasedTable(schema.user, 'teacher');
     const admin = aliasedTable(schema.user, 'admin');
-    const db = drizzle(c.env.myAppD1, { schema })
+    const db = drizzle(c.env.schoolcontroller, { schema })
 
     const connections = await db.query.enrollments.findMany({
         columns: {
